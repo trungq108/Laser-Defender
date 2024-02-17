@@ -45,4 +45,9 @@ public class Player : MonoBehaviour
         rawInput = value.Get<Vector2>();
     }
 
+    void OnFire(InputValue value)
+    {
+        Shooter shooter = GetComponent<Shooter>();        
+        shooter.isShooting = value.isPressed;        
+    }
 }
