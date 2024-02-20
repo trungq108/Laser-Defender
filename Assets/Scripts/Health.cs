@@ -2,17 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] int health = 50;
     [SerializeField] ParticleSystem exploredFX;
     [SerializeField] bool isApplyCameraShake;
+    [SerializeField] int enemyPoint = 50;
+    [SerializeField] bool isPlayer;
 
     Shake cameraShake;
+    AudioPlay audioPlay;
+    ScoreKeeper scoreKeeper;
 
     private void Awake()
     {
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();  
+        audioPlay = FindObjectOfType<AudioPlay>();
         cameraShake = Camera.main.GetComponent<Shake>();
     }
 
@@ -30,11 +37,18 @@ public class Health : MonoBehaviour
     void TakeDamage(int damageTaken)
     {
         health -= damageTaken;
-        if(health <= 0) { Destroy(gameObject); }
+        if(health <= 0) { Die(); }
     }
-    
+
+    void Die()
+    {
+        if (!isPlayer) { scoreKeeper.AddScore(enemyPoint); }
+        Destroy(gameObject);
+    }
+
     void PlayHitEffect()
     {
+        audioPlay.PlayTakeDamageSFX();
         ParticleSystem hitEffect = Instantiate(exploredFX, transform.position, Quaternion.identity);
         Destroy(hitEffect, hitEffect.main.duration + hitEffect.main.startLifetime.constantMax);
     }
@@ -45,5 +59,10 @@ public class Health : MonoBehaviour
         {
             cameraShake.Play();
         }
+    }
+
+    public int GetHealthNumber()
+    {
+        return health;
     }
 }

@@ -7,12 +7,18 @@ public class Shooter : MonoBehaviour
 {
     public bool isShooting;
     Coroutine shooting;
+    AudioPlay audioPlay;
 
     [SerializeField] GameObject laserPrefabs;
     [SerializeField] float laserSpeed = 5f;
     [SerializeField] float laserLifeTime = 3f;
     [SerializeField] float firingRate;
     [SerializeField] bool useAI;
+    
+    private void Awake()
+    {
+        audioPlay = FindObjectOfType<AudioPlay>();
+    }
 
     private void Start()
     {
@@ -40,6 +46,7 @@ public class Shooter : MonoBehaviour
             Rigidbody2D laserRb = laser.GetComponent<Rigidbody2D>();
             laserRb.velocity = transform.up * laserSpeed;
             Destroy(laser, laserLifeTime);
+            audioPlay.PlayShootingSFX();
             yield return new WaitForSeconds(ShootingRate());
         }             
     }

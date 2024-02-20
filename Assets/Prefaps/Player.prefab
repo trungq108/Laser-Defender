@@ -197,6 +197,8 @@ MonoBehaviour:
   health: 500
   exploredFX: {fileID: 4602136320068399484, guid: 31c798b7fafbdb14d8d6d243ada83d68, type: 3}
   isApplyCameraShake: 1
+  enemyPoint: 50
+  isPlayer: 1
 --- !u!114 &-8490039485023038041
 MonoBehaviour:
   m_ObjectHideFlags: 0
