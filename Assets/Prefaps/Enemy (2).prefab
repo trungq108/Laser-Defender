@@ -178,6 +178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   exploredFX: {fileID: 4602136320068399484, guid: 31c798b7fafbdb14d8d6d243ada83d68, type: 3}
+  isApplyCameraShake: 0
+  enemyPoint: 50
+  isPlayer: 0
 --- !u!114 &2660720247896975433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +208,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShooting: 0
   laserPrefabs: {fileID: 4114465945312674729, guid: bc657f74a52f48f4f9cd7ef50e9b2187, type: 3}
+  bulletSpawnParent: {fileID: 0}
   laserSpeed: 5
   laserLifeTime: 3
   firingRate: 1
