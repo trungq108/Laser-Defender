@@ -12,6 +12,27 @@ public class AudioPlay : MonoBehaviour
     [SerializeField] AudioClip takeDamageSFX;
     [SerializeField][Range(0f, 1f)] float takeDamageVolume = 1f;
 
+    static AudioPlay instance;
+
+    private void Awake()
+    {
+        ManagerSingleton();
+    }
+
+    private void ManagerSingleton()
+    {
+        if (instance != null)
+        {
+            this.gameObject.SetActive(false);
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     public void PlayShootingSFX()
     {
         PlayClip(shootingSFX, shootingVolume);

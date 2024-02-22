@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Health : MonoBehaviour
 {
@@ -15,10 +16,12 @@ public class Health : MonoBehaviour
     Shake cameraShake;
     AudioPlay audioPlay;
     ScoreKeeper scoreKeeper;
+    SceneControl sceneControl;
 
     private void Awake()
     {
-        scoreKeeper = FindObjectOfType<ScoreKeeper>();  
+        sceneControl = FindObjectOfType<SceneControl>();
+        scoreKeeper = FindObjectOfType<ScoreKeeper>();
         audioPlay = FindObjectOfType<AudioPlay>();
         cameraShake = Camera.main.GetComponent<Shake>();
     }
@@ -37,12 +40,13 @@ public class Health : MonoBehaviour
     void TakeDamage(int damageTaken)
     {
         health -= damageTaken;
-        if(health <= 0) { Die(); }
+        if (health <= 0) { Die(); }
     }
 
     void Die()
     {
         if (!isPlayer) { scoreKeeper.AddScore(enemyPoint); }
+        else { sceneControl.LoadGameOverScene(); }      
         Destroy(gameObject);
     }
 
