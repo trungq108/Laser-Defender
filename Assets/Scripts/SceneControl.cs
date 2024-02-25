@@ -7,7 +7,6 @@ public class SceneControl : MonoBehaviour
 {
     [SerializeField] float delay = 1.0f;
     
-
     public void LoadMenuScene()
     {
         SceneManager.LoadScene("MenuScene");
@@ -16,6 +15,7 @@ public class SceneControl : MonoBehaviour
     public void LoadMainGameScene()
     {
         SceneManager.LoadScene("MainGame");
+        FindAnyObjectByType<ScoreKeeper>().ResetScore();
     }
 
     public void LoadGameOverScene()
